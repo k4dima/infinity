@@ -1,0 +1,9 @@
+<resources>
+    <string name="enjoying" hidden="true">Enjoying using app?</string>
+    <string name="yes" hidden="true">Yes</string>
+    <string name="no" hidden="true">No</string>
+    <string name="please_rate" hidden="true">Rate it from 1 to 5 ⭐ in Play Store</string>
+    <string name="update" hidden="true">Update</string>
+    <string name="later" hidden="true">Later</string>
+    <string name="new_version_available" hidden="true">Available new version of the application, which contains performance improvements, bug fixes, new features.</string>
+</resources>

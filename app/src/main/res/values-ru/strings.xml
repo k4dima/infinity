@@ -1,0 +1,9 @@
+<resources>
+    <string name="enjoying" hidden="true">Нравится приложение?</string>
+    <string name="yes" hidden="true">Да</string>
+    <string name="no" hidden="true">Нет</string>
+    <string name="please_rate" hidden="true">Поставь от 1 до 5 ⭐ в Play Маркете</string>
+    <string name="update" hidden="true">Обновить</string>
+    <string name="later" hidden="true">Потом</string>
+    <string name="new_version_available" hidden="true">Доступна новая версия программы, которая содержит улучшение производительности, исправление ошибок, новые функции.</string>
+</resources>
