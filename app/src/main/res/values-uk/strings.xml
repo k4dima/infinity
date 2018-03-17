@@ -2,7 +2,8 @@
     <string name="enjoying" hidden="true">Подобається додаток?</string>
     <string name="yes" hidden="true">Так</string>
     <string name="no" hidden="true">Ні</string>
-    <string name="please_rate" hidden="true">Постав від 1 до 5 ⭐ в Play Маркеті</string>
+    <string name="rate" hidden="true">Постав від 1 до 5 ⭐ в Play Маркеті.</string>
+    <string name="review" hidden="true">Дайте нам знать как улучшить приложение.</string>
     <string name="update" hidden="true">Оновити</string>
     <string name="later" hidden="true">Потім</string>
     <string name="new_version_available" hidden="true">Доступна нова версія програми, що містить поліпшення продуктивності, виправлення помилок, нові функції.</string>

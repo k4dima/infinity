@@ -1,5 +1,6 @@
 package com.infinitylabs;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
@@ -29,27 +30,30 @@ public class Apprate {
     private static final int LAUNCHES_UNTIL_PROMPT = 2;
     private static SharedPreferences prefs;
     private static SharedPreferences.Editor editor;
+    private final Activity activity;
 
     public Apprate(Activity activity) {
-        rate(activity);
+        this.activity = activity;
+        rate();
     }
 
-    private void rate(final Activity activity) {
+    private void rate() {
         if (prefs == null) {
             new Run() {
+                @SuppressLint("CommitPrefEdits")
                 @Override
                 protected void run() throws AppException, IOException, JSONException {
                     prefs = Infinity.preferences(APPRATER);
+                    editor = prefs.edit();
                 }
 
                 @Override
                 protected void completed() {
-                    rate(activity);
+                    rate();
                 }
             }.execute();
         } else {
             if (!prefs.getBoolean(DONT_SHOW, false)) {
-                editor = prefs.edit();
                 int launchCount = prefs.getInt(LAUNCH_COUNT, 0) + 1;
                 editor.putInt(LAUNCH_COUNT, launchCount);
                 Long firstLaunch = prefs.getLong(FIRST_LAUNCH, 0);
@@ -57,27 +61,34 @@ public class Apprate {
                     firstLaunch = System.currentTimeMillis();
                     editor.putLong(FIRST_LAUNCH, firstLaunch);
                 }
+                editor.apply();
                 if (launchCount >= LAUNCHES_UNTIL_PROMPT &&
                         System.currentTimeMillis() >= firstLaunch + (DAYS_UNTIL_PROMPT * Time.DAY)) {
                     // TODO non Google Play Stores
+                    boolean review = Math.random() < 0.5;
                     new AlertDialog.Builder(activity)
-                            .setMessage(string(R.string.enjoying))
-                            .setPositiveButton(string(R.string.yes), (dialog, id) ->
+                            .setMessage(string(review ? R.string.review : R.string.enjoying))
+                            .setPositiveButton(string(R.string.yes), (dialog, id) -> {
+                                if (review)
+                                    success();
+                                else
                                     new AlertDialog.Builder(activity)
-                                            .setMessage(string(R.string.please_rate))
-                                            .setPositiveButton(android.R.string.ok, (dialog1, which) -> {
-                                                activity.startActivity(INTENT_PLAY_STORE);
-                                                dontShow();
-                                            })
+                                            .setMessage(string(R.string.rate))
+                                            .setPositiveButton(android.R.string.ok, (dialog1, which) -> success())
                                             .setOnCancelListener(dialog12 -> later())
-                                            .show())
+                                            .show();
+                            })
                             .setNegativeButton(string(R.string.no), (dialog, id) -> dontShow())
                             .setOnCancelListener(dialog -> later())
                             .show();
                 }
-                editor.apply();
             }
         }
+    }
+
+    private void success() {
+        activity.startActivity(INTENT_PLAY_STORE);
+        dontShow();
     }
 
     private void later() {
