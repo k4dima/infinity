@@ -10,10 +10,6 @@ import android.net.Uri;
 import com.infinitylabs.server.Run;
 import com.smodule.Time;
 
-import org.json.JSONException;
-
-import java.io.IOException;
-
 import static com.infinitylabs.Infinity.APPLICATION_ID;
 import static com.infinitylabs.Infinity.string;
 
@@ -42,7 +38,7 @@ public class Apprate {
             new Run() {
                 @SuppressLint("CommitPrefEdits")
                 @Override
-                protected void run() throws AppException, IOException, JSONException {
+                protected void run() {
                     prefs = Infinity.preferences(APPRATER);
                     editor = prefs.edit();
                 }
